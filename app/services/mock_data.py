@@ -74,17 +74,13 @@ ROOT_CAUSE: dict[str, object] = {
     "chain": [
         {"event": "Service A traffic increased", "change": "+62%"},
         {"event": "Service B requests increased", "change": "+48%"},
-        {"event": "Database queries increased", "change": "+37%"},
         {"event": "Compute usage increased", "change": "+31%"},
         {"event": "Network cost increased", "change": "+52%"},
     ],
     "evidence": [
         "Service A traffic increased by 62%",
         "Service B received 48% more requests",
-        "Database queries increased by 37% alongside Service B request growth",
-        "Compute usage increased by 31%",
         "Network cost increased by 52%",
-        "Total cloud cost increased from 536000 to 742000 (38.4%)",
     ],
 }
 
