@@ -1,0 +1,304 @@
+{
+  "report_metadata": {
+    "title": "CloudTrace AI - Data Quality & Validation Report",
+    "generated_at": "2026-09-26T07:48:02.424669+00:00",
+    "pipeline_version": "1.0.0",
+    "overall_status": "VALIDATED_AND_READY"
+  },
+  "dataset_summary": {
+    "canonical_services_count": 8,
+    "canonical_services": [
+      "api-gateway",
+      "order-api",
+      "payment-service",
+      "recommendation-service",
+      "postgres-db",
+      "redis-cache",
+      "notification-service",
+      "object-storage"
+    ],
+    "timestamp_start": "2026-03-01T00:00:00Z",
+    "timestamp_end": "2026-03-14T23:00:00Z",
+    "total_hours": 336,
+    "total_days": 14.0
+  },
+  "files_audit": {
+    "services": {
+      "raw_file": "raw/services.json",
+      "processed_file": "processed/services.json",
+      "raw_row_count": 8,
+      "final_row_count": 8,
+      "rows_removed": 0,
+      "removal_reasons": [],
+      "duplicates_count": 0,
+      "missing_values": {},
+      "status": "PASS"
+    },
+    "dependencies": {
+      "raw_file": "raw/dependencies.csv",
+      "processed_file": "processed/dependencies_clean.csv",
+      "raw_row_count": 13,
+      "final_row_count": 13,
+      "rows_removed": 0,
+      "removal_reasons": [],
+      "duplicates_count": 0,
+      "missing_values": {
+        "source_service": 0,
+        "target_service": 0,
+        "request_count": 0
+      },
+      "source_services_valid": true,
+      "target_services_valid": true,
+      "self_loops_count": 0,
+      "status": "PASS"
+    },
+    "events": {
+      "raw_file": "raw/events.csv",
+      "processed_file": "processed/events_clean.csv",
+      "raw_row_count": 32,
+      "final_row_count": 32,
+      "rows_removed": 0,
+      "removal_reasons": [],
+      "duplicates_count": 0,
+      "missing_values": {
+        "timestamp": 0,
+        "event_type": 0,
+        "service_id": 0,
+        "description": 0,
+        "version": 23
+      },
+      "missing_values_explanation": {
+        "version": "23 events are operational events (incidents, config changes, traffic spikes, autoscaling) which naturally do not have software version tags; only deployments have version tags."
+      },
+      "services_valid": true,
+      "raw_chronological_sort_violation": true,
+      "sort_correction_applied": "Sorted by timestamp (stable sort) moving out-of-order 2026-03-14T12:00:00Z event to the correct chronological index.",
+      "status": "PASS"
+    },
+    "metrics": {
+      "raw_file": "raw/metrics.csv",
+      "processed_file": "processed/metrics_clean.csv",
+      "raw_row_count": 2688,
+      "final_row_count": 2688,
+      "rows_removed": 0,
+      "removal_reasons": [],
+      "duplicates_count": 0,
+      "missing_values": {
+        "timestamp": 0,
+        "service_id": 0,
+        "cpu": 0,
+        "memory": 0,
+        "requests": 0,
+        "latency": 0,
+        "errors": 0,
+        "network_in": 0,
+        "network_out": 0,
+        "db_queries": 0
+      },
+      "services_valid": true,
+      "negative_or_impossible_values": {
+        "cpu_negative": 0,
+        "cpu_above_100": 0,
+        "memory_negative": 0,
+        "memory_above_100": 0,
+        "requests_negative": 0,
+        "latency_negative": 0,
+        "errors_negative": 0,
+        "network_in_negative": 0,
+        "network_out_negative": 0,
+        "db_queries_negative": 0
+      },
+      "chronological_ordering_verified": true,
+      "time_grid_completeness": "336 hours * 8 services = 2688 records. Exactly 1 reading per service per hour.",
+      "status": "PASS"
+    },
+    "costs": {
+      "raw_file": "raw/costs.csv",
+      "processed_file": "processed/costs_clean.csv",
+      "raw_row_count": 4053,
+      "final_row_count": 4053,
+      "rows_removed": 0,
+      "removal_reasons": [],
+      "duplicates_count": 0,
+      "missing_values": {
+        "timestamp": 0,
+        "service_id": 0,
+        "resource": 0,
+        "region": 0,
+        "usage": 0,
+        "unit": 0,
+        "cost": 0
+      },
+      "services_valid": true,
+      "negative_or_impossible_values": {
+        "usage_negative": 0,
+        "cost_negative": 0
+      },
+      "chronological_ordering_verified": true,
+      "sparse_line_item_semantics": "object-storage Storage-Egress appears only during active transfer window (2026-03-07T11:00 to 2026-03-08T07:00, 21 records), exactly mirroring real AWS S3 / Cloud Billing usage exports.",
+      "status": "PASS"
+    }
+  },
+  "anomalies_preservation_attestation": {
+    "outlier_deletion_applied": false,
+    "iqr_clipping_applied": false,
+    "z_score_filtering_applied": false,
+    "smoothing_applied": false,
+    "statement": "All high-magnitude telemetry spikes (CPU up to 97.6%, requests up to 55,336, DB queries up to 55,336, egress network up to 2,094 MB, costs up to $14.71/hr) have been strictly preserved as legitimate cloud behavioral signals."
+  },
+  "scenarios_validation": {
+    "scenario_1_normal_baseline": {
+      "name": "Normal Operation Baseline",
+      "time_window": "2026-03-01T00:00:00Z to 2026-03-03T23:00:00Z",
+      "description": "Baseline system telemetry with realistic diurnal cycles across all 8 services. No anomaly alerts.",
+      "metrics_sample": {
+        "order_api_mean_requests": 586.74,
+        "postgres_db_mean_cpu": 30.09,
+        "average_system_hourly_cost": 2.4423
+      },
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_2_order_api_traffic_spike": {
+      "name": "Order API Traffic Spike",
+      "time_window": "2026-03-04T10:00:00Z to 2026-03-04T18:00:00Z",
+      "trigger_event": "Marketing flash sale campaign launched globally",
+      "affected_services": [
+        "api-gateway",
+        "order-api",
+        "postgres-db",
+        "payment-service"
+      ],
+      "metrics_impact": {
+        "order_api_peak_requests": 3469,
+        "order_api_baseline_requests": 586.74,
+        "request_increase_pct": 452.79
+      },
+      "cost_impact": "Proportional increase in api-gateway API-Requests and Gateway-DataTransfer costs.",
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_3_database_query_explosion": {
+      "name": "Database Query Explosion",
+      "time_window": "2026-03-06T02:00:00Z to 2026-03-06T14:00:00Z",
+      "trigger_event": "Deploy personalized recommendation feed with real-time similarity query (v1.8.0)",
+      "mitigation_event": "Rollback similarity query loop and restore cached precomputations (v1.8.1)",
+      "affected_services": [
+        "recommendation-service",
+        "postgres-db"
+      ],
+      "metrics_impact": {
+        "postgres_db_queries_peak": 55336,
+        "postgres_db_queries_baseline": 2691.57,
+        "query_increase_pct": 1361.44,
+        "postgres_peak_cpu": 96.9
+      },
+      "cost_impact": {
+        "postgres_hourly_cost_peak": 3.2864,
+        "postgres_hourly_cost_baseline": 0.64,
+        "postgres_cost_increase_pct": 398.1
+      },
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_4_network_traffic_spike": {
+      "name": "Network Traffic Spike / Egress Surge",
+      "time_window": "2026-03-07T11:00:00Z to 2026-03-08T07:00:00Z",
+      "trigger_event": "Updated invoice PDF generator to attach high-resolution uncompressed assets",
+      "mitigation_event": "Re-enabled PDF compression and S3 presigned asset caching",
+      "affected_services": [
+        "notification-service",
+        "object-storage"
+      ],
+      "metrics_impact": {
+        "notification_network_out_peak_mb": 1771.8,
+        "notification_network_out_baseline_mb": 17.12,
+        "network_increase_pct": 9266.47
+      },
+      "cost_impact": {
+        "notification_hourly_cost_peak": 14.7478,
+        "notification_hourly_cost_baseline": 0.042,
+        "object_storage_egress_total_cost": 245.56
+      },
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_5_problematic_deployment": {
+      "name": "Problematic Deployment & Memory Leak Autoscale",
+      "time_window": "2026-03-09T08:00:00Z to 2026-03-09T20:00:00Z",
+      "trigger_event": "Release checkout optimization and inventory pre-fetch (v2.4.0)",
+      "mitigation_event": "Emergency hotfix rollback: Revert v2.4.0 checkout pre-fetch memory leak (v2.4.1)",
+      "affected_services": [
+        "order-api"
+      ],
+      "metrics_impact": {
+        "order_api_peak_memory_pct": 98.0,
+        "order_api_peak_errors": 471
+      },
+      "cost_impact": {
+        "order_api_peak_hourly_cost": 0.9715,
+        "order_api_baseline_hourly_cost": 0.1619,
+        "cost_increase_pct": 354.2
+      },
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_6_storage_growth": {
+      "name": "Storage Growth Accumulation",
+      "time_window": "2026-03-10T04:00:00Z to 2026-03-14T12:00:00Z",
+      "trigger_event": "Enable detailed JSON audit logging & lifecycle policy disabled",
+      "affected_services": [
+        "object-storage",
+        "order-api"
+      ],
+      "metrics_impact": {
+        "storage_usage_baseline_gb": 1199.97,
+        "storage_usage_peak_gb": 17165.76,
+        "storage_growth_pct": 1330.51
+      },
+      "cost_impact": "Cumulative steady increase in Standard-Storage line items.",
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_7_multiple_simultaneous_anomalies": {
+      "name": "Multiple Simultaneous Anomalies & Cascade",
+      "time_window": "2026-03-11T10:00:00Z to 2026-03-11T22:00:00Z",
+      "trigger_event": "Regional flash promo surge in EU/US regions + Redis memory fragmentation and eviction thrashing",
+      "affected_services": [
+        "api-gateway",
+        "redis-cache",
+        "postgres-db"
+      ],
+      "metrics_impact": {
+        "redis_peak_cpu": 97.6,
+        "redis_peak_latency": 131.8,
+        "postgres_peak_cpu_during_cascade": 91.1
+      },
+      "cost_impact": "Redis node scale-out cost increase from $0.26/hr to $0.39/hr and postgres IOPS burst increase.",
+      "status": "VERIFIED_PRESENT"
+    },
+    "scenario_8_false_positive": {
+      "name": "Harmless Telemetry Anomaly / False Positive",
+      "time_window": "2026-03-13T07:00:00Z to 2026-03-13T19:00:00Z",
+      "trigger_events": [
+        "Scheduled routine database maintenance: autovacuum analyze and index rebuilding",
+        "Upstream third-party banking gateway latency degradation"
+      ],
+      "affected_services": [
+        "postgres-db",
+        "payment-service"
+      ],
+      "telemetry_alarms": {
+        "postgres_autovacuum_mean_cpu": 89.15,
+        "payment_service_peak_latency_ms": 995.7,
+        "payment_service_peak_errors": 108
+      },
+      "cost_impact": {
+        "postgres_hourly_cost_during_maintenance": 0.64,
+        "postgres_hourly_cost_baseline": 0.64,
+        "payment_service_hourly_cost_during_degradation": 0.081,
+        "payment_service_hourly_cost_baseline": 0.081,
+        "cost_divergence_explained": "High CPU on postgres-db due to internal autovacuum did not increase provisioned instance or IOPS costs. High latency and errors on payment-service due to 3rd-party banking partner did not consume additional compute units ($0.081/hr flat). Demonstrates CloudTrace AI must not equate high telemetry alarms directly to cost root causes."
+      },
+      "status": "VERIFIED_PRESENT"
+    }
+  },
+  "warnings": [
+    "raw/events.csv had 1 row (object-storage volume alert at 2026-03-14T12:00:00Z) recorded at index 23 out of chronological sequence before March 11 events. Chronological sorting corrected this in processed/events_clean.csv.",
+    "raw/costs.csv has 21 records for object-storage Storage-Egress corresponding to the high-res uncompressed assets event on March 7-8. These records were preserved without fabricating zero-cost rows, maintaining genuine cloud billing CUR semantics."
+  ]
+}
