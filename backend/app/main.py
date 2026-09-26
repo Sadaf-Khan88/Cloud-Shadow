@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.costs import router as costs_router
 from app.api.root_causes import router as root_causes_router
 from app.api.services import router as services_router
+from app.api.dependencies import router as dependencies_router
 
 app = FastAPI(
     title="CloudShadow API",
@@ -21,6 +22,7 @@ app.add_middleware(
 app.include_router(costs_router)
 app.include_router(root_causes_router)
 app.include_router(services_router)
+app.include_router(dependencies_router)
 
 
 @app.get("/health")
