@@ -1,0 +1,14 @@
+source_service,target_service,request_count
+api-gateway,order-api,1542000
+api-gateway,recommendation-service,1185000
+order-api,payment-service,482000
+order-api,postgres-db,2940000
+order-api,redis-cache,3620000
+order-api,notification-service,465000
+order-api,object-storage,195000
+payment-service,postgres-db,920000
+payment-service,notification-service,435000
+recommendation-service,postgres-db,890000
+recommendation-service,redis-cache,2840000
+recommendation-service,object-storage,72000
+notification-service,object-storage,310000
