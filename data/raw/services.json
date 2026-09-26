@@ -1,0 +1,42 @@
+[
+  {
+    "service_id": "api-gateway",
+    "service_name": "API Gateway",
+    "service_type": "api_gateway"
+  },
+  {
+    "service_id": "order-api",
+    "service_name": "Order Management API",
+    "service_type": "microservice"
+  },
+  {
+    "service_id": "payment-service",
+    "service_name": "Payment Processing Service",
+    "service_type": "microservice"
+  },
+  {
+    "service_id": "recommendation-service",
+    "service_name": "Product Recommendation Engine",
+    "service_type": "ml_service"
+  },
+  {
+    "service_id": "postgres-db",
+    "service_name": "Primary PostgreSQL Database",
+    "service_type": "database"
+  },
+  {
+    "service_id": "redis-cache",
+    "service_name": "Distributed Redis Cache",
+    "service_type": "cache"
+  },
+  {
+    "service_id": "notification-service",
+    "service_name": "Customer Notification Service",
+    "service_type": "microservice"
+  },
+  {
+    "service_id": "object-storage",
+    "service_name": "Cloud Object Store",
+    "service_type": "storage"
+  }
+]
