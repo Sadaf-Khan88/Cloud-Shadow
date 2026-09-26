@@ -95,6 +95,7 @@ const adaptEngineResult = (payload: EngineResult): EngineResult => {
                 ? "Medium"
                 : "Low",
         timestamp: asText(item.timestamp, new Date().toISOString()),
+        status: "active",
         summary: "Ranked using engine evidence; confidence does not prove causality.",
         what_changed: related ? `${service} ${metric} changed by ${related.change_pct}% from baseline.` : `${service} was ranked for the ${metric} signal.`,
         evidence,
@@ -319,21 +320,8 @@ class ApiService {
 
   // GET /services
   public async getServices(): Promise<{ data: ServiceDetail[]; isDemo: boolean }> {
-    if (!this.isDemoMode) {
-      try {
-        const res = await this.fetchWithTimeout("/services");
-        if (res.ok) {
-          const data = await res.json();
-          return { data, isDemo: false };
-        }
-      } catch (e) {
-        console.warn("Backend /services unavailable, falling back to demo data:", e);
-      }
-    }
-
     return { data: mockServices, isDemo: true };
   }
-
   // Service detail is not included in EngineResult; keep the existing mock fallback.
   public async getService(id: string): Promise<{ data: ServiceDetail | null; isDemo: boolean }> {
     const found = mockServices.find((s) => s.id === id || s.id.toLowerCase() === id.toLowerCase()) || null;
@@ -342,18 +330,6 @@ class ApiService {
 
   // GET /dependencies
   public async getDependencies(): Promise<{ data: DependencyGraphData; isDemo: boolean }> {
-    if (!this.isDemoMode) {
-      try {
-        const res = await this.fetchWithTimeout("/dependencies");
-        if (res.ok) {
-          const data = await res.json();
-          return { data, isDemo: false };
-        }
-      } catch (e) {
-        console.warn("Backend /dependencies unavailable, falling back to demo data:", e);
-      }
-    }
-
     return { data: mockDependencies, isDemo: true };
   }
 
