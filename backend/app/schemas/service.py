@@ -9,3 +9,4 @@ class ServiceResponse(BaseModel):
     cpuUsage: float
     latency: float
     status: str
+

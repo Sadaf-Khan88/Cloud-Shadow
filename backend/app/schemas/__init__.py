@@ -1,10 +1,10 @@
 """Pydantic response schemas for the CloudShadow API."""
 
-from app.schemas.cost import CostSummaryResponse, CostTrendPoint
-from app.schemas.dependency import DependencyEdge, DependencyNode, DependencyResponse
-from app.schemas.recommendation import RecommendationResponse
-from app.schemas.rootcause import RootCauseChainItem, RootCauseResponse
-from app.schemas.service import ServiceResponse
+from ..schemas.cost import CostSummaryResponse, CostTrendPoint
+from ..schemas.dependency import DependencyEdge, DependencyNode, DependencyResponse
+from ..schemas.recommendation import RecommendationResponse
+from ..schemas.rootcause import RootCauseChainItem, RootCauseResponse
+from ..schemas.service import ServiceResponse
 
 __all__ = [
     "CostSummaryResponse",
@@ -17,3 +17,4 @@ __all__ = [
     "RootCauseResponse",
     "ServiceResponse",
 ]
+

@@ -108,3 +108,4 @@ RECOMMENDATIONS: list[dict[str, object]] = [
         "confidence": 88,
     }
 ]
+

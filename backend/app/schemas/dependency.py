@@ -14,3 +14,4 @@ class DependencyEdge(BaseModel):
 class DependencyResponse(BaseModel):
     nodes: list[DependencyNode]
     edges: list[DependencyEdge]
+

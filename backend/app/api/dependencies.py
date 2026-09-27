@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.schemas.dependency import DependencyResponse
+from ..schemas.dependency import DependencyResponse
 
 router = APIRouter()
 

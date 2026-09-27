@@ -8,3 +8,4 @@ class RecommendationResponse(BaseModel):
     reliabilityImpact: str
     reason: str
     confidence: int
+

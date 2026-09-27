@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from app.schemas.cost import CostSummaryResponse, CostTrendPoint
-from app.services.mock_data import COST_SUMMARY, COST_TREND
+from ..schemas.cost import CostSummaryResponse, CostTrendPoint
+from ..services.mock_data import COST_SUMMARY, COST_TREND
 
 router = APIRouter(prefix="/costs", tags=["costs"])
 
@@ -14,3 +14,4 @@ def get_cost_summary() -> CostSummaryResponse:
 @router.get("/trend", response_model=list[CostTrendPoint])
 def get_cost_trend() -> list[CostTrendPoint]:
     return COST_TREND
+

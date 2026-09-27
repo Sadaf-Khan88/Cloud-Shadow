@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.schemas.recommendation import RecommendationResponse
+from ..schemas.recommendation import RecommendationResponse
 
 router = APIRouter()
 

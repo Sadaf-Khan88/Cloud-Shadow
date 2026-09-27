@@ -12,3 +12,4 @@ class RootCauseResponse(BaseModel):
     impact: str
     chain: list[RootCauseChainItem]
     evidence: list[str]
+

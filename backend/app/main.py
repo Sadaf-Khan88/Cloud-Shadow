@@ -1,21 +1,23 @@
+from .api.analysis import router as analysis_router
+from .api.costs import router as costs_router
+from .api.dependencies import router as dependencies_router
+from .api.recommendations import router as recommendations_router
+from .api.root_causes import router as root_causes_router
+from .api.services import router as services_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from app.api.analysis import router as analysis_router
-from app.api.recommendations import router as recommendations_router
-from app.api.costs import router as costs_router
-from app.api.root_causes import router as root_causes_router
-from app.api.services import router as services_router
-from app.api.dependencies import router as dependencies_router
 
 app = FastAPI(
     title="CloudShadow API",
     version="1.0.0",
 )
 
+origins = [
+    "http://localhost:3000",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

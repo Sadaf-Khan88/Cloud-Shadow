@@ -13,3 +13,4 @@ class CostSummaryResponse(BaseModel):
 class CostTrendPoint(BaseModel):
     date: str
     cost: float
+
