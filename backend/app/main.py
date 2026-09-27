@@ -14,7 +14,7 @@ app = FastAPI(
 
 origins = [
     "http://localhost:3000",
-    "https://cloud-shadow-seven.vercel.app/"
+    "https://cloud-shadow-seven.vercel.app"
 ]
 app.add_middleware(
     CORSMiddleware,
